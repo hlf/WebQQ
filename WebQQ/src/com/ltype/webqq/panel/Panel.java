@@ -13,6 +13,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
 
+import com.ltype.webqq.login.Login;
+
 public class Panel {
 	protected Shell shellWebqq;
 	public Text userText;
@@ -94,6 +96,9 @@ public class Panel {
 				dialog.open();
 				*/                
 				try {
+					//Login login = new Login(userText.getText(), passwordText.getText(), checkText.getText());
+					Login login = new Login("1154673085", "test123456", checkText.getText());
+					login.isNeedCaptcha();
 				} 
 				catch (Exception e1) {
 					e1.printStackTrace();
