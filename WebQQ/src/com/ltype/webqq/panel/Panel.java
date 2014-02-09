@@ -98,7 +98,10 @@ public class Panel {
 				try {
 					//Login login = new Login(userText.getText(), passwordText.getText(), checkText.getText());
 					Login login = new Login("1154673085", "test123456", checkText.getText());
-					login.isNeedCaptcha();
+					if (login.isNeedCaptcha() == 1) {
+						Image Icon = new Image(display, "code.jpg");
+				        imageLabel.setBackgroundImage(Icon);
+					}
 				} 
 				catch (Exception e1) {
 					e1.printStackTrace();
