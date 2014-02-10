@@ -40,7 +40,6 @@ public class Login{
 		    	String noCaptchaUrl =  "https://ssl.ptlogin2.qq.com/login?u="+ User +"@qq.com&p="+ V +"&verifycode="+ returnContent[2] +"&webqq_type=10&remember_uin=1&login2qq=1&aid=1003903&u1=http%3A%2F%2Fweb2.qq.com%2Floginproxy.html%3Flogin2qq%3D1%26webqq_type%3D10&h=1&ptredirect=0&ptlang=2052&daid=164&from_ui=1&pttype=1&dumy=&fp=loginerroralert&action=2-25-14373&mibao_css=m_webqq&t=1&g=1&js_type=0&js_ver=10067&login_sig=CJIbUnaQHYZwClTcVFfHP-XWgvtc0nbyj1in7dOIdIB*ZMb9e7hhXKMeBLwpYXXX";
 		    	String noCaptchaContent = connect.connectByGet(noCaptchaUrl);
 		    	System.out.println(noCaptchaContent);
-		        String[] returnTrueUrl = patternComma.split(noCaptchaContent);
 		        System.out.println(connect.connectByPost("http://d.web2.qq.com/channel/login2"));
 	        } else {
 	        	//需要验证码

@@ -18,6 +18,7 @@ public class HttpClient{
 	private String getContent;
 	private CloseableHttpClient httpClient;
 	private BasicCookieStore cookieStore;
+	private String ptWebqq;
 	public void createCookieStore(){
 		this.cookieStore = new BasicCookieStore();
         this.httpClient = HttpClients.custom()
@@ -59,24 +60,17 @@ public class HttpClient{
         System.out.println(url);
 		try {
 			//httpPost.addHeader("Referer", "https://ui.ptlogin2.qq.com/cgi-bin/login?daid=164&target=self&style=5&mibao_css=m_webqq&appid=1003903&enable_qlogin=0&no_verifyimg=1&s_url=http%3A%2F%2Fweb2.qq.com%2Floginproxy.html&f_url=loginerroralert&strong_login=1&login_state=10&t=20131202001");
-			httpPost.addHeader("clientid", "48847830");
-			httpPost.addHeader("psessionid", "null");
-			httpPost.addHeader("r", "{\"status\":\"online\",\"ptwebqq\":\"82fa6fe2e69689ed869ee5c632d3d083aa56cb300ad2fbe9befa54ab995f09da\",\"passwd_sig\":\"\",\"clientid\":\"48847830\",\"psessionid\":null}");
-			CloseableHttpResponse response = this.httpClient.execute(httpPost);
-            System.out.println("Login form get: " + response.getStatusLine());
-            
-
-            System.out.println("Post logon cookies:");
-            List<Cookie> cookies = cookieStore.getCookies();
-            if (cookies.isEmpty()) {
-                System.out.println("None");
-            } else {
-                for(Cookie cookie:cookies){
-                    if(cookie.getName().equals("ptwebqq")) {
-                    	System.out.println(cookie.getValue());
-                    }
-                }
+			List<Cookie> cookies = cookieStore.getCookies();
+            for(Cookie cookie:cookies){
+                	if(cookie.getName().equals("ptwebqq")) {
+                    this.ptWebqq = cookie.getValue();
+            	}
             }
+            System.out.println(ptWebqq);
+            httpPost.addHeader("clientid", "48847830");
+			httpPost.addHeader("psessionid", "null");
+			httpPost.addHeader("r", "{\"status\":\"online\",\"ptwebqq\":\"" + this.ptWebqq + "\",\"passwd_sig\":\"\",\"clientid\":\"48847830\",\"psessionid\":null}");
+			CloseableHttpResponse response = this.httpClient.execute(httpPost);
 			HttpEntity entity = response.getEntity();
             this.getContent = EntityUtils.toString(entity);
             response.close();

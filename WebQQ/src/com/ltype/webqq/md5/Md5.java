@@ -52,6 +52,7 @@ public class Md5{
 	public String getMd5V(String Password, String HexUser, String Captcha) throws UnsupportedEncodingException{
     	String P = hexchar2bin(md5(Password));
 		String U = md5(P + hexchar2bin(HexUser.replace("\\x", "").toUpperCase()));
+		System.out.println(HexUser.replace("\\x", "").toUpperCase());
 		return md5(U + Captcha.toUpperCase());
 	}
 }
