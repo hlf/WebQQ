@@ -1,10 +1,12 @@
 package com.ltype.webqq.httpclient;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -14,22 +16,24 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import com.ltype.webqq.httpclient.cookie.CookieStoreFactory;
+import com.ltype.webqq.pattern.PatternUtils;
+
 public class HttpClient{
 	private String getContent;
 	private CloseableHttpClient httpClient;
-	private BasicCookieStore cookieStore;
+	private CookieStore cookieStore;
 	private String ptWebqq;
 	public void createCookieStore(){
-		this.cookieStore = new BasicCookieStore();
-        this.httpClient = HttpClients.custom()
-                .setDefaultCookieStore(cookieStore)
-                .build();
+		/*
+		this.cookieStore = new CookieStoreFactory().getCookieStore();
+        this.httpClient = new HttpClientFactory().getHttpClient();*/
 	}
 	public String connectByGet(String url){
         HttpGet httpGet = new HttpGet(url);
 		try {
 	        httpGet.addHeader("Referer", "https://ui.ptlogin2.qq.com/cgi-bin/login?daid=164&target=self&style=5&mibao_css=m_webqq&appid=1003903&enable_qlogin=0&no_verifyimg=1&s_url=http%3A%2F%2Fweb2.qq.com%2Floginproxy.html&f_url=loginerroralert&strong_login=1&login_state=10&t=20131202001");
-            CloseableHttpResponse response = this.httpClient.execute(httpGet);
+           /* CloseableHttpResponse response = this.httpClient.execute(httpGet);
 			HttpEntity entity = response.getEntity();
             this.getContent = EntityUtils.toString(entity);
             /*
@@ -46,7 +50,8 @@ public class HttpClient{
                 }
             }
             */
-            response.close();
+            System.out.println(new ResponseUtils().getResultString(httpGet));
+            /*response.close();*/
 			httpGet.abort();
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
@@ -82,4 +87,13 @@ public class HttpClient{
 			return getContent;
 		}
 	}
+	public String getLoginSig() throws IOException {
+        HttpGet httpGet = new HttpGet("https://ui.ptlogin2.qq.com/cgi-bin/login?daid=164&target=self&style=5&mibao_css=m_webqq&appid=1003903&enable_qlogin=0&no_verifyimg=1&s_url=http%3A%2F%2Fweb2.qq.com%2Floginproxy.html&f_url=loginerroralert&strong_login=1&login_state=10&t=20130830001");
+        try {
+            String result = new ResponseUtils().getResultString(httpGet);
+            return new PatternUtils().findFirst("(?<=g_login_sig=encodeURIComponent\\(\").*?(?=\"\\);)", result);
+        } finally {
+            httpGet.abort();
+        }
+    }
 }

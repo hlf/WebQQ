@@ -56,7 +56,7 @@ public class Login{
 	        	DownCaptchaImage downCaptcha = new DownCaptchaImage();
 	        	return downCaptcha.downImage(User);
 	        }
-		} catch (UnsupportedEncodingException e) {
+		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}

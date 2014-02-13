@@ -97,7 +97,7 @@ public class Panel {
 				*/                
 				try {
 					//Login login = new Login(userText.getText(), passwordText.getText(), checkText.getText());
-					Login login = new Login("920687062", "sora123456/*-", checkText.getText());
+					Login login = new Login("1154673085", "test123456", checkText.getText());
 					if (login.isNeedCaptcha() == 1) {
 						Image Icon = new Image(display, "code.jpg");
 				        imageLabel.setBackgroundImage(Icon);
