@@ -1,16 +1,7 @@
 package com.ltype.webqq.login;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.security.MessageDigest;
 import java.util.Random;
 import java.util.regex.Pattern;
-
-import org.eclipse.swt.graphics.Image;
 
 import com.ltype.webqq.httpclient.HttpClient;
 import com.ltype.webqq.md5.Md5;

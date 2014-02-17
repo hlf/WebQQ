@@ -25,9 +25,8 @@ public class HttpClient{
 	private CookieStore cookieStore;
 	private String ptWebqq;
 	public void createCookieStore(){
-		/*
 		this.cookieStore = new CookieStoreFactory().getCookieStore();
-        this.httpClient = new HttpClientFactory().getHttpClient();*/
+        this.httpClient = new HttpClientFactory().getHttpClient();
 	}
 	public String connectByGet(String url){
         HttpGet httpGet = new HttpGet(url);
